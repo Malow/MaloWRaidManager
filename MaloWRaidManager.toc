@@ -1,0 +1,8 @@
+## Interface: 88888
+## Title: MaloWRaidManager
+## DefaultState: enabled
+## Notes: This is a raid manager mod.
+## Version 1
+## Author: MaloW
+MaloWRaidManager.xml
+MaloWRaidManager.lua
