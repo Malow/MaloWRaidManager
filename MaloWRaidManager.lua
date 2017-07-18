@@ -8,11 +8,11 @@ bloodlustGroups = {}
 -- Main
 SlashCmdList["MRMCOMMAND"] = function(msg)
 	local arguments = mrm_SplitString(msg)
-	local command = string.lower(arguments[1])
+	local command = arguments[1]
 	table.remove(arguments, 1)
 	if command == "swap" then
-		local player1Name = string.lower(arguments[1])
-		local player2Name = string.lower(arguments[2])
+		local player1Name = arguments[1]
+		local player2Name = arguments[2]
 		mrm_Swap(player1Name, player2Name)
 		lastSwap1 = player1Name
 		lastSwap2 = player2Name
@@ -65,22 +65,24 @@ function mrm_GetRaidIndexAndSubGroupForUnitName(playerName)
 			return i, subGroup
 		end
 	end
+	mrm_Print("MRM: Error, couldn't find player " .. playerName .. " in your raid")
+	return nil;
 end
 
 function mrm_BloodlustGroup(group, players)
 	if bloodlustGroups[group] ~= nil then
-		for _, player in pairs(players) do 
+		for _, player in pairs(players) do
 			if mrm_HasBuff(player, "Bloodlust") then
 				for _, player in pairs(players) do 
 					local playerIndex = mrm_GetRaidIndexAndSubGroupForUnitName(player)
 					SetRaidSubgroup(playerIndex, bloodlustGroups[group][player])
 				end
 				bloodlustGroups[group] = nil
-				mrm_Print("Moved " .. players .. " back to their groups after getting Bloodlust") 
+				mrm_Print("MRM: Moved the players in group " .. group .. " back to their original groups after getting Bloodlust") 
 				return
 			end
 		end
-		mrm_Print("Bloodlust not present on " .. players .. " aborting swap back") 
+		mrm_Print("MRM: Bloodlust not present on " .. players .. " aborting swap back") 
 		return
 	end
 	
@@ -91,7 +93,7 @@ function mrm_BloodlustGroup(group, players)
 		SetRaidSubgroup(playerIndex, group)
 	end
 	mrm_Whisper("Bloodlust group created, POP IT!", players[1]);
-	mrm_Print("Moved " .. players .. " to group " .. group .. " for Bloodlust") 
+	mrm_Print("MRM: Moved " .. players .. " to group " .. group .. " for Bloodlust") 
 end
 
 
@@ -99,7 +101,7 @@ function mrm_SplitString(s)
 	t = {}
 	index = 1
 	for value in string.gmatch(s, "%S+") do 
-		t[index] = value
+		t[index] = string.lower(value)
 		index = index + 1
 	end
 	return t
