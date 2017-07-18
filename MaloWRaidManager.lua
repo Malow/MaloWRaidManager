@@ -93,7 +93,7 @@ function mrm_BloodlustGroup(group, players)
 		SetRaidSubgroup(playerIndex, group)
 	end
 	mrm_Whisper("Bloodlust group created, POP IT!", players[1]);
-	mrm_Print("MRM: Moved " .. players .. " to group " .. group .. " for Bloodlust") 
+	mrm_Print("MRM: Moved the specified players to group " .. group .. " for Bloodlust") 
 end
 
 
