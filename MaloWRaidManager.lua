@@ -21,7 +21,7 @@ SlashCmdList["MRMCOMMAND"] = function(msg)
 	elseif command == "blgroup" then
 		local group = arguments[1]
 		table.remove(arguments, 1)
-		mrm_BloodlustGroup(arguments)
+		mrm_BloodlustGroup(group, arguments)
 	elseif command == "swapback" then
 		mrm_Swap(lastSwap1, lastSwap2)
 		mrm_Print("MRM: Swapped back " .. lastSwap1 .. " with " .. lastSwap2)
@@ -32,6 +32,8 @@ SlashCmdList["MRMCOMMAND"] = function(msg)
 		else 
 			mrm_Print("MRM: Bloodlust not present on " .. lastSwap1 .. " aborting swap back")
 		end
+	else
+		mrm_Print("MRM: Unrecognized command: " .. command)
 	end
 end 
 SLASH_MRMCOMMAND1 = "/mrm";
